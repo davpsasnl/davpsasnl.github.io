@@ -1,26 +1,45 @@
-name: Fix package-lock.json
+name: Auto-update npm lockfile
 
 on:
-  workflow_dispatch:
+  push:
+    branches:
+      - main
+    paths:
+      - 'package.json'
 
 jobs:
-  regen-lockfile:
+  update-lockfile:
     runs-on: ubuntu-latest
+
     steps:
-      - name: Checkout
+      - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
-      - name: Remove old lockfile
-        run: rm -f package-lock.json
-      - name: Install dependencies and regenerate lockfile
+          node-version: '20' # Use your Node.js version
+
+      - name: Install dependencies and update lockfile
         run: npm install
-      - name: Commit and push new lockfile
+
+      - name: Check for lockfile changes
+        id: git-check
+        run: |
+          git status
+          if git diff --quiet package-lock.json; then
+            echo "No changes to commit"
+            echo "changed=false" >> $GITHUB_OUTPUT
+          else
+            echo "Lockfile changed"
+            echo "changed=true" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Commit and push lockfile
+        if: steps.git-check.outputs.changed == 'true'
         run: |
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           git add package-lock.json
-          git commit -m "ci: regenerate package-lock.json from workflow" || echo "No changes to commit"
-          git push
+          git commit -m "chore: update package-lock.json [auto]"
+          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} HEAD:${{ github.ref_name }}
