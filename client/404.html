@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <script>
+      // SPA redirect script by rafgraph
+      // https://github.com/rafgraph/spa-github-pages
+      // If a real file is requested, this does nothing;
+      // Otherwise, it redirects all non-file requests to index.html
+      var pathSegments = window.location.pathname.split('/');
+      var filename = pathSegments[pathSegments.length - 1];
+      if (!filename.includes('.') && window.location.pathname !== '/') {
+        // replace this with your app's base URL if needed
+        window.location.replace('/?redirected=' + encodeURIComponent(window.location.pathname + window.location.search + window.location.hash));
+      }
+    </script>
+    <meta http-equiv="refresh" content="0; url=/" />
+  </head>
+  <body>
+    Redirecting...
+  </body>
+</html>
