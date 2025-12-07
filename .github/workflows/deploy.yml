@@ -30,10 +30,14 @@ jobs:
         working-directory: ./client
         run: npm run build
 
+      - name: Add SPA redirect 404.html
+        run: |
+          echo '<!DOCTYPE html><html><head><meta charset="utf-8"><script>var pathSegments = window.location.pathname.split("/");var filename = pathSegments[pathSegments.length - 1];if (!filename.includes(".") && window.location.pathname !== "/"){window.location.replace("/?redirected="+encodeURIComponent(window.location.pathname+window.location.search+window.location.hash));}</script><meta http-equiv="refresh" content="0; url=/" /></head><body>Redirecting...</body></html>' > dist/server/public/404.html
+
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: ./dist/server/public  # Output is relative to repo root
+          path: ./dist/server/public
 
       - name: Deploy to GitHub Pages
         id: deployment
