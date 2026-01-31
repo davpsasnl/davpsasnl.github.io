@@ -1,7 +1,7 @@
 ---
 title: Welcome to Our School Blog
 date: 2026-01-31
-author: Principal
+author: Soumyadip Karforma
 ---
 
 # Welcome to Our School Blog
@@ -25,4 +25,4 @@ Thank you for being a part of our journey!
 
 *Best regards,*
 
-**The School Administration**
+**The Student Council**
