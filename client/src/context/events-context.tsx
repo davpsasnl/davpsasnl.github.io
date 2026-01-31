@@ -9,8 +9,7 @@ export type EventItem = {
   DATE?: string;
 };
 
-const EVENTS_JSON_URL =
-  "https://raw.githubusercontent.com/soumyadip-schl/assets-dav/main/events/events.json";
+const EVENTS_JSON_URL = "/events/events.json";
 
 const EventsContext = createContext<{ events: EventItem[]; loading: boolean; error: string | null }>({ events: [], loading: true, error: null });
 
@@ -35,7 +34,7 @@ export const EventsProvider: React.FC<{ children: React.ReactNode }> = ({ childr
       const filteredEvents = Array.isArray(data)
         ? data.filter((event) => event.TITLE && event.TITLE.trim().length > 0)
         : [];
-      setEvents(filteredEvents.reverse());
+      setEvents(filteredEvents);
     } catch (e: any) {
       setError("Failed to load events. Please try again later.");
       setEvents([]);
