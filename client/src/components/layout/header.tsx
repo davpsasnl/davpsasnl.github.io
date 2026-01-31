@@ -11,6 +11,7 @@ export default function Header() {
     { label: "Academics", href: "/academics" },
     { label: "Admissions", href: "/admissions" },
     { label: "Events", href: "/events" },
+    { label: "Blog", href: "/blog" },
     { label: "Gallery", href: "/gallery" },
     { label: "Contact", href: "/contact" },
   ];

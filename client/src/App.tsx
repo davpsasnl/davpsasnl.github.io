@@ -12,6 +12,8 @@ import Gallery from "@/pages/gallery";
 import Contact from "@/pages/contact";
 import NotFound from "@/pages/not-found";
 import EventsPage from "@/pages/events";
+import Blog from "@/pages/blog";
+import BlogPost from "@/pages/blog-post";
 import { EventsProvider } from "@/context/events-context";
 import { ButtonLinksProvider } from "@/context/button-links-context";
 import { Analytics } from "@vercel/analytics/react";
@@ -28,6 +30,8 @@ function Router() {
         <Route path="/gallery" component={Gallery} />
         <Route path="/contact" component={Contact} />
         <Route path="/events" component={EventsPage} />
+        <Route path="/blog" component={Blog} />
+        <Route path="/blog/:id" component={BlogPost} />
         <Route component={NotFound} />
       </Switch>
     </Layout>
