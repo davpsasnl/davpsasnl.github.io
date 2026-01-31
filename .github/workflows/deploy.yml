@@ -4,6 +4,9 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+  schedule:
+    - cron: '0 0 * * *' # Runs every day at midnight
 
 permissions:
   contents: read
@@ -22,12 +25,10 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Install dependencies (client)
-        working-directory: ./client
+      - name: Install dependencies
         run: npm ci
 
-      - name: Build site (client)
-        working-directory: ./client
+      - name: Build site
         run: npm run build
 
       - name: Copy index.html to 404.html for SPA fallback
